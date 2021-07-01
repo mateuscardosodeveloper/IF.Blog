@@ -15,7 +15,7 @@ def sample_user(username='test', email='test@email.com', password='test123'):
 class ModelTests(TestCase):
     
     def test_create_blog_post_str(self):
-        """Test to create a blog post with a string attribute"""
+        """Test to create a blog post with a string representation"""
         blog_post = models.BlogPost.objects.create(
             user=sample_user(),
             title='test blog post',
