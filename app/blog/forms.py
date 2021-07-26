@@ -13,7 +13,13 @@ class BlogPostForm(forms.Form):
 class BlogPostModelForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ['title', 'image', 'slug', 'content', 'publish_date']
+        fields = ['title', 'image', 'slug', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
     def clean_title(self, *args, **kwargs):
         instance = self.instance

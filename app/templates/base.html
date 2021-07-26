@@ -15,7 +15,14 @@
 
 <body>
     {% include "navbar.html" %}
-    <div class="container-fluid">
+    <div class="container">
+        {% if messages %}
+        <ul class="messages alert alert-success">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% block content%}
 
         {%endblock%}

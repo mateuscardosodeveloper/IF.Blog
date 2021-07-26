@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib import messages
 
 from .models import BlogPost
 from comment.models import Comment
@@ -21,11 +22,15 @@ def blog_post_list_view(request):
 @staff_member_required
 def blog_post_create_view(request):
     form = BlogPostModelForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        obj = form.save(commit=False)
-        obj.user = request.user
-        obj.save()
-        form = BlogPostModelForm()
+    try:
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save(messages.success(request, "Sent post successfully"))
+            form = BlogPostModelForm()
+    except Exception:
+        messages.add_message(request, messages.warning, 'Hello world.')
+        return messages
     template_name = 'form.html'
     context = {'form': form}
     return render(request, template_name, context)
