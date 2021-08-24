@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'blog',
     'searches',
     'comment',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,5 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'media')
 MEDIA_URL = '/media/'  # django-storages
+
+AUTH_USER_MODEL = 'user.User'
