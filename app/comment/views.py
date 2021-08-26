@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.admin.views.decorators import staff_member_required
-
+from django.contrib.auth.decorators import login_required
 from blog.forms import CommentModelForm
 from blog.models import BlogPost
 
 # Create your views here.
 
-@staff_member_required
+@login_required
 def comment_view(request, slug):
     slug = get_object_or_404(BlogPost, slug=slug)
     form = CommentModelForm(request.POST or None)

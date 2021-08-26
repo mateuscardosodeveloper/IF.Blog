@@ -12,14 +12,18 @@
           <li class="nav-item">
             <a class="nav-link" href="/blog">Blog</a>
           </li>
+          
         </ul>
-
+          Wellcome {{user.name}}
           <a class="nav-link" href="/blog-new">Post a blog</a>
-
+  
         <form class="d-flex" action="/search/">
           <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        {% if user.is_authenticated %}
+        <a href="/accounts/logout/" class="btn btn-light">log out</a>
+        {% endif %}
       </div>
     </div>
   </nav>

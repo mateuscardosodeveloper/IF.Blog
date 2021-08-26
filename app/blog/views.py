@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import BlogPost
@@ -18,19 +18,18 @@ def blog_post_list_view(request):
     return render(request, template_name, context)
 
 
-# @login_required
-@staff_member_required
+@login_required
 def blog_post_create_view(request):
     form = BlogPostModelForm(request.POST or None, request.FILES or None)
-    try:
-        if form.is_valid():
+    if form.is_valid():
+        try:
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save(messages.success(request, "Sent post successfully"))
             form = BlogPostModelForm()
-    except Exception:
-        messages.add_message(request, messages.warning, 'Hello world.')
-        return messages
+        except Exception:
+            messages.add_message(request, messages.warning, 'Hello world.')
+            return messages
     template_name = 'form.html'
     context = {'form': form}
     return render(request, template_name, context)
@@ -44,7 +43,7 @@ def blog_post_detail_view(request, slug):
     return render(request, template_name, context)
 
 
-@staff_member_required
+@login_required
 def blog_post_update_view(request, slug):
     obj = get_object_or_404(BlogPost, slug=slug)
     form = BlogPostModelForm(request.POST or None, request.FILES or None, instance=obj)
@@ -54,7 +53,7 @@ def blog_post_update_view(request, slug):
     context = {'title': f'Update {obj.title}', 'form': form}
     return render(request, template_name, context)
 
-@staff_member_required
+@login_required
 def blog_post_delete_view(request, slug):
     obj = get_object_or_404(BlogPost, slug=slug)
     if request.method == "POST":
