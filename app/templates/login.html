@@ -3,18 +3,12 @@
 {% block content %}
 <h1>{{ title }}</h1>
 
-<form class="mx-xl-5 px-xl-5" action="">
+<form class="mx-xl-5 px-xl-5" method="post" action="."  enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="mb-3 mt-3">
-        <label class="form-label">Email</label>{{form.email}}
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Password</label>{{form.password}}
-    </div>
+    {{form.as_p}}
 
     <button class="btn btn-success" type="submit">Login</button>
-    <a href="/blog" class="btn btn-danger">Cancel</a>
+    <a href="/" class="btn btn-danger">Cancel</a>
     <a href="/signup" class="btn btn-link">Don't have account?</a>
     
 </form>

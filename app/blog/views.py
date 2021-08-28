@@ -22,14 +22,10 @@ def blog_post_list_view(request):
 def blog_post_create_view(request):
     form = BlogPostModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        try:
-            obj = form.save(commit=False)
-            obj.user = request.user
-            obj.save(messages.success(request, "Sent post successfully"))
-            form = BlogPostModelForm()
-        except Exception:
-            messages.add_message(request, messages.warning, 'Hello world.')
-            return messages
+        obj = form.save(commit=False)
+        obj.user = request.user
+        obj.save(messages.success(request, "Sent post successfully"))
+        form = BlogPostModelForm()
     template_name = 'form.html'
     context = {'form': form}
     return render(request, template_name, context)

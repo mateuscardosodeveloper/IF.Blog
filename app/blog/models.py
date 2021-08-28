@@ -18,9 +18,7 @@ class BlogPostQuerySet(models.QuerySet):
             Q(title__icontains=query) |
             Q(content__icontains=query) |
             Q(slug__icontains=query) |
-            Q(user__first_name__icontains=query) |
-            Q(user__last_name__icontains=query) |
-            Q(user__username__icontains=query) 
+            Q(user__name__icontains=query) 
         )
         return self.filter(lookup)
 
@@ -46,7 +44,7 @@ class BlogPost(models.Model):  # blogpost_set -> queryset
     slug = models.SlugField(unique=True)
     content = models.TextField(null=True, blank=True)
     publish_date = models.DateTimeField(
-        auto_now=False, auto_now_add=False, null=True, blank=True)
+        auto_now=True)
     timestamp = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
 

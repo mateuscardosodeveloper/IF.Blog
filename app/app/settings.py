@@ -143,3 +143,5 @@ MEDIA_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'media')
 MEDIA_URL = '/media/'  # django-storages
 
 AUTH_USER_MODEL = 'user.User'
+
+# AUTHENTICATION_BACKENDS = ['path.to.auth.module.EmailBackend']
