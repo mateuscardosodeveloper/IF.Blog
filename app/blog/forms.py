@@ -30,17 +30,16 @@ class LoginForm(forms.Form):
         email = self.cleaned_data.get("email")
         qs = User.objects.filter(email__iexact=email) # thisIsMyUsername == thisismyusername
         if not qs.exists():
-            raise forms.ValidationError("This is an invalid user.")
+            raise forms.ValidationError("This is an invalid email.")
         if qs.count() != 1:
-            raise forms.ValidationError("This is an invalid user.")
+            raise forms.ValidationError("This is an invalid email.")
         return email
 
 class SignUpModelForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['name', 'email', 'password']
+        fields = ['email', 'password']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
