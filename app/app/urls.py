@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from blog.views import blog_post_create_view
 from searches.views import search_view
-from user.views import login, logout_view, sing_up
+from user.views import login_view, logout_view, sing_up
 
 from app import views
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('search/', search_view),
 
-    path('accounts/login/', login ),    
+    path('accounts/login/', login_view ),    
     path('accounts/logout/', logout_view ),    
     path('signup/', sing_up ),
     path('admin/', admin.site.urls),

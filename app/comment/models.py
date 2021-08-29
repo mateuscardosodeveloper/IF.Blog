@@ -7,9 +7,9 @@ User = settings.AUTH_USER_MODEL
 
 # Create your models here.
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=User)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     comment = models.TextField(max_length=255)
-    blogpost = models.ForeignKey(BlogPost, on_delete=BlogPost, null=True)
+    blogpost = models.ForeignKey(BlogPost, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.comment

@@ -11,15 +11,29 @@ class BlogPostForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea)
 
 
-class LoginModelForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['email', 'password']
-        widgets = {
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-        }
+class LoginForm(forms.Form):
 
+    email = forms.CharField(widget=forms.EmailInput(
+        attrs={
+        "class": "form-control"
+    }))
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "id": "user-password"
+            }
+        )
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        qs = User.objects.filter(email__iexact=email) # thisIsMyUsername == thisismyusername
+        if not qs.exists():
+            raise forms.ValidationError("This is an invalid user.")
+        if qs.count() != 1:
+            raise forms.ValidationError("This is an invalid user.")
+        return email
 
 class SignUpModelForm(forms.ModelForm):
     class Meta:

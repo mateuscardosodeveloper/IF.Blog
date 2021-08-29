@@ -144,4 +144,4 @@ MEDIA_URL = '/media/'  # django-storages
 
 AUTH_USER_MODEL = 'user.User'
 
-# AUTHENTICATION_BACKENDS = ['path.to.auth.module.EmailBackend']
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']

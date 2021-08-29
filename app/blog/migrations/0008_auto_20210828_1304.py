@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='blogpost',
             name='publish_date',
-            field=models.DateTimeField(auto_now=True, default='2021-08-28 00:00:00'),
+            field=models.DateTimeField(auto_now=True),
             preserve_default=False,
         ),
     ]
