@@ -6,10 +6,9 @@ from blog import models
 from comment.models import Comment
 
 
-def sample_user(username='test', email='test@email.com', password='test123'):
+def sample_user(email='test@email.com', password='test123'):
     """Create a sample user"""
-    return get_user_model().objects.create_user(username, email, password)
-
+    return get_user_model().objects.create_user( email, password)
 
 
 def sample_blog_post(user, **params):
@@ -24,6 +23,7 @@ def sample_blog_post(user, **params):
 
     return models.BlogPost.objects.create(user=user, **defaults)
 
+
 class ModelTestsComment(TestCase):
 
     def test_create_comment_str(self):
@@ -34,10 +34,12 @@ class ModelTestsComment(TestCase):
             'test2@email.com',
             'test12345',
         )
+        #import ipdb;ipdb.set_trace()
         comment = Comment.objects.create(
             user=sample_user(),
             blogpost=sample_blog_post(user=user2),
-            comment= 'Test comment',
+            comment='Test comment',
         )
+        
 
         self.assertEqual(str(comment), comment.comment)

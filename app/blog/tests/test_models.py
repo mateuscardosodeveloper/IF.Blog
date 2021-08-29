@@ -7,9 +7,9 @@ from blog import models
 
 
 
-def sample_user(username='test', email='test@email.com', password='test123'):
+def sample_user(email='test@email.com', password='test123'):
     """Create a sample user"""
-    return get_user_model().objects.create_user(username, email, password)
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelTests(TestCase):
